@@ -1,3 +1,4 @@
+
 Discourse.Dialect.inlineBetween({
   start: '\\(',
   stop: '\\)',
