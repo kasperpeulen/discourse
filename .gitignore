@@ -38,6 +38,7 @@ config/environments/production.rb
 /log/*.log
 /tmp
 /logfile
+log/
 
 /spec/fixtures/plugins/my_plugin/auto_generated
 
