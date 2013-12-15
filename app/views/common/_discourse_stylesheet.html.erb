@@ -1,15 +1,26 @@
 <%- unless SiteCustomization.override_default_style(session[:preview_style]) %>
-  <% if mobile_view? %>
-    <%= stylesheet_link_tag "mobile" %>
-  <% else %>
-    <%= stylesheet_link_tag "desktop" %>
-  <% end %>
+
+  <script type="text/javascript">
+    (function() {
+      var h = document.getElementsByTagName('html')[0];
+      window.isMobileView = (localStorage && localStorage.mobileView) ? (localStorage.mobileView === 'true') :
+          Modernizr.mq("only screen and (max-width: 480px), only screen and (max-device-width: 480px)");
+
+      h.className += (isMobileView ? ' mobile-view' : ' desktop-view');
+      if(isMobileView) {
+        document.write(<%= stylesheet_links(:mobile).inspect.html_safe %>);
+      } else {
+        document.write(<%= stylesheet_links(:desktop).inspect.html_safe %>);
+      }
+    })();
+  </script>
+
 <%- end %>
+
+<noscript>
+  <%= stylesheet_link_tag "desktop" %>
+</noscript>
 
 <%- if staff? %>
   <%= stylesheet_link_tag "admin"%>
 <%-end%>
-
-<%- unless customization_disabled? %>
-  <%= SiteCustomization.custom_stylesheet(session[:preview_style], mobile_view? ? :mobile : :desktop) %>
-<%- end %>

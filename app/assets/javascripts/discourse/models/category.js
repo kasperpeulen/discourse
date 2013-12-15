@@ -65,7 +65,7 @@ Discourse.Category = Discourse.Model.extend({
         hotness: this.get('hotness'),
         secure: this.get('secure'),
         permissions: this.get('permissionsForUpdate'),
-        auto_close_days: this.get('auto_close_days'),
+        auto_close_hours: this.get('auto_close_hours'),
         position: this.get('position'),
         parent_category_id: this.get('parent_category_id')
       },
@@ -117,6 +117,13 @@ Discourse.Category = Discourse.Model.extend({
     }
   }.property("topics"),
 
+  featuredTopics: function() {
+    var topics = this.get('topics');
+    if (topics && topics.length) {
+      return topics.slice(0, Discourse.SiteSettings.category_featured_topics || 2);
+    }
+  }.property('topics'),
+
   topicTrackingState: function(){
     return Discourse.TopicTrackingState.current();
   }.property(),
@@ -127,7 +134,34 @@ Discourse.Category = Discourse.Model.extend({
 
   newTopics: function(){
     return this.get('topicTrackingState').countNew(this.get('name'));
-  }.property('topicTrackingState.messageCount')
+  }.property('topicTrackingState.messageCount'),
+
+  totalTopicsTitle: function() {
+    return I18n.t('categories.total_topics', {count: this.get('topic_count')});
+  }.property('post_count'),
+
+  totalPostsTitle: function() {
+    return I18n.t('categories.total_posts', {count: this.get('post_count')});
+  }.property('post_count'),
+
+  topicCountStatsStrings: function() {
+    return this.countStatsStrings('topics');
+  }.property('posts_year', 'posts_month', 'posts_week', 'posts_day'),
+
+  postCountStatsStrings: function() {
+    return this.countStatsStrings('posts');
+  }.property('posts_year', 'posts_month', 'posts_week', 'posts_day'),
+
+  countStatsStrings: function(prefix) {
+    var sep = ' / ';
+    if (this.get(prefix + '_day') > 1) {
+      return [this.get(prefix + '_day') + sep + I18n.t('day'), this.get(prefix + '_week') + sep + I18n.t('week')];
+    } else if (this.get(prefix + '_week') > 1) {
+      return [this.get(prefix + '_week') + sep + I18n.t('week'), this.get(prefix + '_month') + sep + I18n.t('month')];
+    } else {
+      return [this.get(prefix + '_month') + sep + I18n.t('month'), this.get(prefix + '_year') + sep + I18n.t('year')];
+    }
+  }
 
 });
 

@@ -38,7 +38,8 @@ gem 'seed-fu' , github: 'SamSaffron/seed-fu'
 
 if rails4?
   gem 'rails'
-  gem 'redis-rails', :git => 'git://github.com/SamSaffron/redis-store.git'
+  # because of https://github.com/redis-store/redis-store/pull/183
+  gem 'redis-rails', :git => 'https://github.com/SamSaffron/redis-store.git'
   gem 'rails-observers'
   gem 'actionpack-action_caching'
 else
@@ -68,8 +69,6 @@ gem 'ember-source', '~> 1.2.0.1'
 gem 'handlebars-source', '~> 1.1.2'
 gem 'barber'
 
-gem 'vestal_versions', git: 'https://github.com/SamSaffron/vestal_versions'
-
 gem 'message_bus'
 gem 'rails_multisite', path: 'vendor/gems/rails_multisite'
 gem 'simple_handlebars_rails', path: 'vendor/gems/simple_handlebars_rails'
@@ -80,8 +79,7 @@ gem 'sidetiq', '>= 0.3.6'
 gem 'eventmachine'
 gem 'fast_xs'
 
-# https://github.com/CodeMonkeySteve/fast_xor/issues/6
-gem 'fast_xor', git: 'https://github.com/CodeMonkeySteve/fast_xor.git'
+gem 'fast_xor'
 gem 'fastimage'
 gem 'fog', '1.18.0', require: false
 gem 'unf', require: false
@@ -107,7 +105,8 @@ gem 'omniauth-oauth2', require: false
 gem 'omniauth-browserid', git: 'https://github.com/callahad/omniauth-browserid.git', branch: 'observer_api'
 gem 'omniauth-cas'
 gem 'oj'
-gem 'pg'
+# while resolving https://groups.google.com/forum/#!topic/ruby-pg/5_ylGmog1S4
+gem 'pg', '0.15.1'
 gem 'rake'
 
 
@@ -119,9 +118,10 @@ gem 'sidekiq', '2.15.1'
 gem 'sidekiq-failures'
 gem 'sinatra', require: nil
 gem 'slim'  # required for sidekiq-web
-gem 'therubyracer', require: 'v8'
+
+# URGENT fix needed see: https://github.com/cowboyd/therubyracer/pull/280
+gem 'therubyracer', require: 'v8', git: 'https://github.com/SamSaffron/therubyracer.git'
 gem 'thin', require: false
-gem 'diffy', '>= 3.0', require: false
 gem 'highline', require: false
 gem 'rack-protection' # security
 

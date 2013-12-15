@@ -59,6 +59,9 @@ en:
   rss_posts_in_topic: "RSS feed of '%{topic}'"
   rss_topics_in_category: "RSS feed of topics in the '%{category}' category"
   author_wrote: "%{author} wrote:"
+  num_posts: "Posts:"
+  num_participants: "Participants:"
+  read_full_topic: "Read full topic"
   private_message_abbrev: "PM"
   rss_description:
     latest: "Latest topics"
@@ -514,7 +517,7 @@ en:
     delete_removed_posts_after: "Number of hours after which posts removed by the author will be deleted."
     max_image_width: "Maximum allowed width of images in a post"
     max_image_height: "Maximum allowed height of images in a post"
-    category_featured_topics: "Number of topics displayed per category in the /categories page"
+    category_featured_topics: "Number of topics displayed per category on the /categories page. After changing this value, it takes up to 15 minutes for the categories page to update."
     add_rel_nofollow_to_user_content: "Add rel nofollow to all submitted user content, except for internal links (including parent domains) changing this requires you update all your baked markdown with: \"rake posts:rebake\""
     exclude_rel_nofollow_domains: "A comma delimited list of domains where nofollow is not added (tld.com will automatically allow sub.tld.com as well)"
 
@@ -681,7 +684,7 @@ en:
     min_body_similar_length: "The minimum length of a post's body before it will be checked for similar topics"
 
     category_colors: "A pipe (|) separated list of hexadecimal color values allowed for categories"
-    enable_wide_category_list: "Enable traditional full width, non-tiling, category list"
+    enable_wide_category_list: "Enable traditional full width, non-tiling, category list. NOTE: this setting currently does nothing and will be removed. Wide list is the only option now."
 
     max_image_size_kb: "The maximum size of images we allow users to upload in kB - configure the limit in nginx (client_max_body_size) / apache or proxy as well."
     max_attachment_size_kb: "The maximum size of files we allow users to upload in kB - configure the limit in nginx (client_max_body_size) / apache or proxy as well."
@@ -734,6 +737,7 @@ en:
     enable_names: "Allow users to show their full names"
     display_name_on_posts: "Also show a user's full name on their posts"
     invites_shown: "Maximum invites shown on a user page"
+    short_progress_text_threshold: "After the number of posts in a topic goes above this number, the progress bar will only show the current post number. If you change the progress bar's width, you may need to change this value."
 
   notification_types:
     mentioned: "%{display_username} mentioned you in %{link}"
@@ -771,10 +775,18 @@ en:
     archived_disabled: "This topic is now unarchived. It is no longer frozen, and can be changed."
     closed_enabled: "This topic is now closed. New replies are no longer allowed."
     closed_disabled: "This topic is now opened. New replies are allowed."
-    autoclosed_enabled:
+    autoclosed_enabled_days:
       zero: "This topic was automatically closed after 1 day. New replies are no longer allowed."
       one: "This topic was automatically closed after 1 day. New replies are no longer allowed."
       other: "This topic was automatically closed after %{count} days. New replies are no longer allowed."
+    autoclosed_enabled_hours:
+      zero: "This topic was automatically closed after 1 hour. New replies are no longer allowed."
+      one: "This topic was automatically closed after 1 hour. New replies are no longer allowed."
+      other: "This topic was automatically closed after %{count} hours. New replies are no longer allowed."
+    autoclosed_enabled_minutes:
+      zero: "This topic was automatically closed after 1 minute. New replies are no longer allowed."
+      one: "This topic was automatically closed after 1 minute. New replies are no longer allowed."
+      other: "This topic was automatically closed after %{count} minutes. New replies are no longer allowed."
     autoclosed_disabled: "This topic is now opened. New replies are allowed."
     pinned_enabled: "This topic is now pinned. It will appear at the top of its category until it is either unpinned by a moderator, or the Clear Pin button is pressed."
     pinned_disabled: "This topic is now unpinned. It will no longer appear at the top of its category."

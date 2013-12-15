@@ -162,7 +162,7 @@ en:
 
       user_mentioned_user: "<a href='{{user1Url}}'>{{user}}</a> mentioned <a href='{{user2Url}}'>{{another_user}}</a>"
       user_mentioned_you: "<a href='{{user1Url}}'>{{user}}</a> mentioned <a href='{{user2Url}}'>you</a>"
-      you_mentioned_user: "<a href='{{user1Url}}'>You</a> mentioned <a href='{{user2Url}}'>{{user}}</a>"
+      you_mentioned_user: "<a href='{{user1Url}}'>You</a> mentioned <a href='{{user2Url}}'>{{another_user}}</a>"
 
       posted_by_user: "Posted by <a href='{{userUrl}}'>{{user}}</a>"
       posted_by_you: "Posted by <a href='{{userUrl}}'>you</a>"
@@ -193,6 +193,8 @@ en:
       latest_by: "latest by"
       toggle_ordering: "toggle ordering control"
       subcategories: "Subcategories:"
+      total_topics: "Total topics: %{count}"
+      total_posts: "Total posts: %{count}"
 
     user:
       said: "{{username}} said:"
@@ -375,6 +377,7 @@ en:
     month_desc: 'topics posted in the last 30 days'
     week: 'week'
     week_desc: 'topics posted in the last 7 days'
+    day: 'day'
 
     first_post: First post
     mute: Mute
@@ -384,6 +387,7 @@ en:
     summary:
       enabled_description: "You're viewing a summary of this topic. To see all posts again, click below."
       description: "There are <b>{{count}}</b> replies. Save reading time by displaying only the most relevant replies?"
+      description_time: "There are <b>{{count}}</b> replies with an estimated read time of <b>{{readingTime}} minutes</b>. Save reading time by displaying only the most relevant replies?"
       enable: 'Summarize This Topic'
       disable: 'Show All Posts'
 
@@ -527,15 +531,15 @@ en:
       none: "You have no notifications right now."
       more: "view older notifications"
       mentioned: "<span title='mentioned' class='icon'>@</span> {{username}} {{link}}"
-      quoted: "<i title='quoted' class='icon icon-quote-right'></i> {{username}} {{link}}"
-      replied: "<i title='replied' class='icon icon-reply'></i> {{username}} {{link}}"
-      posted: "<i title='replied' class='icon icon-reply'></i> {{username}} {{link}}"
-      edited: "<i title='edited' class='icon icon-pencil'></i> {{username}} {{link}}"
-      liked: "<i title='liked' class='icon icon-heart'></i> {{username}} {{link}}"
-      private_message: "<i class='icon icon-envelope-alt' title='private message'></i> {{username}} {{link}}"
-      invited_to_private_message: "<i class='icon icon-envelope-alt' title='private message'></i> {{username}} {{link}}"
-      invitee_accepted: "<i title='accepted your invitation' class='icon icon-signin'></i> {{username}} accepted your invitation"
-      moved_post: "<i title='moved post' class='icon icon-arrow-right'></i> {{username}} moved {{link}}"
+      quoted: "<i title='quoted' class='fa fa-quote-right'></i> {{username}} {{link}}"
+      replied: "<i title='replied' class='fa fa-reply'></i> {{username}} {{link}}"
+      posted: "<i title='replied' class='fa fa-reply'></i> {{username}} {{link}}"
+      edited: "<i title='edited' class='fa fa-pencil'></i> {{username}} {{link}}"
+      liked: "<i title='liked' class='fa fa-heart'></i> {{username}} {{link}}"
+      private_message: "<i class='fa fa-envelope-o' title='private message'></i> {{username}} {{link}}"
+      invited_to_private_message: "<i class='fa fa-envelope-o' title='private message'></i> {{username}} {{link}}"
+      invitee_accepted: "<i title='accepted your invitation' class='fa fa-sign-in'></i> {{username}} accepted your invitation"
+      moved_post: "<i title='moved post' class='fa fa-arrow-right'></i> {{username}} moved {{link}}"
       total_flagged: "total flagged posts"
 
     upload_selector:
@@ -672,8 +676,10 @@ en:
         title: topic progress
         jump_top: jump to first post
         jump_bottom: jump to last post
+        jump_bottom_with_number: "jump to post %{post_number}"
         total: total posts
         current: current post
+        position: "post %{current} of %{total}"
 
       notifications:
         title: ''
@@ -753,21 +759,9 @@ en:
       login_reply: 'Log In to Reply'
 
       filters:
-        user: "You're viewing only {{n_posts}} {{by_n_users}}."
         n_posts:
           one: "1 post"
           other: "{{count}} posts"
-        by_n_users:
-          one: "made by 1 specific user"
-          other: "made by {{count}} specific users"
-
-        summary: "You're viewing {{n_summarized_posts}} {{of_n_posts}}. "
-        n_summarized_posts:
-          one: "1 summarized post"
-          other: "{{count}} summarized posts"
-        of_n_posts:
-          one: "of 1 in the topic"
-          other: "of {{count}} in the topic"
         cancel: "Show all posts in this topic again."
 
       split_topic:
@@ -814,6 +808,9 @@ en:
         other: "(post withdrawn by author, will be automatically deleted in %{count} hours unless flagged)"
       deleted_by: "deleted by"
       expand_collapse: "expand/collapse"
+      gap:
+        one: "1 post omitted"
+        other: "{{count}} posts omitted"
 
       has_replies:
         one: "Reply"
@@ -952,6 +949,26 @@ en:
           one: "Are you sure you want to delete that post?"
           other: "Are you sure you want to delete all those posts?"
 
+      revisions:
+        controls:
+          first: "First revision"
+          previous: "Previous revision"
+          next: "Next revision"
+          last: "Last revision"
+          comparing_previous_to_current_out_of_total: "<strong>#{{previous}}</strong> vs. <strong>#{{current}}</strong> (out of {{total}})"
+        displays:
+          inline:
+            title: "Show the rendered output with additions and removals inline"
+            button: '<i class="fa fa-square-o"></i> HTML'
+          side_by_side:
+            title: "Show the rendered output diffs side-by-side"
+            button: '<i class="fa fa-columns"></i> HTML'
+          side_by_side_markdown:
+            title: "Show the markdown source diffs side-by-side"
+            button: '<i class="fa fa-columns"></i> Markdown'
+        details:
+          edited_by: "Edited by"
+
     category:
       can: 'can&hellip; '
       none: '(no category)'
@@ -984,7 +1001,7 @@ en:
       already_used: 'This color has been used by another category'
       security: "Security"
       auto_close_label: "Auto-close topics after:"
-      auto_close_units: "days"
+      auto_close_units: "hours"
       edit_permissions: "Edit Permissions"
       add_permission: "Add Permission"
       this_year: "this year"
