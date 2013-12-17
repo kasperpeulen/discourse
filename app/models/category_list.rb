@@ -54,22 +54,17 @@ class CategoryList
     # Find a list of all categories to associate the topics with
     def find_categories
       @categories = Category
-                      .includes(:featured_users)
-                      .secured(@guardian)
-                      .order('position ASC')
+                        .includes(:featured_users)
+                        .secured(@guardian)
+                        .order('position asc')
+                        .order('COALESCE(categories.posts_week, 0) DESC')
+                        .order('COALESCE(categories.posts_month, 0) DESC')
+                        .order('COALESCE(categories.posts_year, 0) DESC')
+                        .to_a
 
       if latest_post_only?
-        @categories = @categories.includes(:latest_post => {:topic => :last_poster} )
-      # else
-      #   # This is only for the old 2-column layout.
-      #   # Use this when we support "organic" positioning of some/all categories.
-      #   @categories = @categories
-      #                   .order('COALESCE(categories.topics_week, 0) DESC')
-      #                   .order('COALESCE(categories.topics_month, 0) DESC')
-      #                   .order('COALESCE(categories.topics_year, 0) DESC')
+        @categories  = @categories.includes(:latest_post => {:topic => :last_poster} )
       end
-
-      @categories = @categories.to_a
 
       subcategories = {}
       to_delete = Set.new

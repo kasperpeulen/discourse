@@ -185,7 +185,8 @@ en:
 
     categories:
       all: "all categories"
-      only_category: "only {{categoryName}}"
+      all_subcategories: "all subcategories"
+      no_subcategory: "no subcategory"
       category: "Category"
       posts: "Posts"
       topics: "Topics"
@@ -350,6 +351,7 @@ en:
         title: "Password"
         too_short: "Your password is too short."
         ok: "Your password looks good."
+        instructions: "Must be at least %{count} characters."
 
       ip_address:
         title: "Last IP Address"
@@ -1006,6 +1008,7 @@ en:
       add_permission: "Add Permission"
       this_year: "this year"
       position: "position"
+      default_position: "Default Position"
       parent: "Parent Category"
 
     flagging:
