@@ -106,8 +106,16 @@ Discourse.Utilities = {
     var div = document.createElement('div');
     div.innerHTML = html;
     $('.clicks', $(div)).remove();
+	$('.MathJax', $(div)).remove();
+	var scripts = div.querySelectorAll("script[type='math/tex']");
+	for( var i = 0; i < scripts.length; i++ ) {
+		scripts[i].textContent = '$' + scripts[i].textContent + '$';
+	}
+	var scripts = div.querySelectorAll("script[type='math/tex; mode=display']");
+	for( var i = 0; i < scripts.length; i++ ) {
+		scripts[i].textContent = '$$' + scripts[i].textContent + '$$';
+	}
     var text = div.textContent || div.innerText || "";
-
     return String(text).trim();
   },
 
